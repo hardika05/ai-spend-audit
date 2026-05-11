@@ -58,6 +58,12 @@ const handleSubmit = async (e: any) => {
     <div className="grid md:grid-cols-2 gap-6">
 
       {/* LEFT: FORM */}
+      <h1 className="text-3xl font-bold mb-2">
+  💸 AI Spend Auditor
+</h1>
+<p className="text-white/70 text-sm mb-4">
+  Analyze your AI tool costs and find savings instantly
+</p>
       <div className="bg-white/10 backdrop-blur-xl p-6 rounded-xl text-white">
         <h1 className="text-2xl font-bold mb-4">AI Spend Audit</h1>
 
@@ -67,7 +73,7 @@ const handleSubmit = async (e: any) => {
   name="tool"
   value={formData.tool}
   onChange={handleChange}
-  className="w-full p-3 rounded-lg bg-white/20 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-white/50"
+  className="w-full p-3 rounded-lg bg-white/10 border border-white/20 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"
 >
   <option value="" className="text-black">Select Tool</option>
   <option value="ChatGPT" className="text-black">ChatGPT</option>
@@ -75,19 +81,19 @@ const handleSubmit = async (e: any) => {
   <option value="GitHub Copilot" className="text-black">GitHub Copilot</option>
 </select>
 
-          <input name="plan" placeholder="Plan" value={formData.plan} onChange={handleChange} className="w-full p-2 rounded bg-white/20" />
+          <input name="plan" placeholder="Plan" value={formData.plan} onChange={handleChange} className="w-full p-3 rounded-lg bg-white/10 border border-white/20 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"/>
 
-          <input name="spend" placeholder="Monthly Spend" value={formData.spend} onChange={handleChange} className="w-full p-2 rounded bg-white/20" />
+          <input name="spend" placeholder="Monthly Spend" value={formData.spend} onChange={handleChange} className="w-full p-3 rounded-lg bg-white/10 border border-white/20 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40" />
 
-          <input name="seats" placeholder="Seats" value={formData.seats} onChange={handleChange} className="w-full p-2 rounded bg-white/20" />
+          <input name="seats" placeholder="Seats" value={formData.seats} onChange={handleChange} className="w-full p-3 rounded-lg bg-white/10 border border-white/20 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40" />
 
-          <input name="teamSize" placeholder="Team Size" value={formData.teamSize} onChange={handleChange} className="w-full p-2 rounded bg-white/20" />
+          <input name="teamSize" placeholder="Team Size" value={formData.teamSize} onChange={handleChange} className="w-full p-3 rounded-lg bg-white/10 border border-white/20 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"/>
 
           <select
   name="useCase"
   value={formData.useCase}
   onChange={handleChange}
-  className="w-full p-3 rounded-lg bg-white/20 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-white/50"
+  className="w-full p-3 rounded-lg bg-white/10 border border-white/20 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"
 >
   <option value="" className="text-black">Use Case</option>
   <option value="coding" className="text-black">coding</option>
@@ -101,12 +107,12 @@ const handleSubmit = async (e: any) => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-white/20"
+            className="w-full p-3 rounded-lg bg-white/10 border border-white/20 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"
           />
 
-          <button className="w-full p-3 rounded-lg bg-white/20 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-white/50">
-            Get Audit Report
-          </button>
+          <button className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:scale-105 transition">
+  Get Audit Report 🚀
+</button>
 
         </form>
       </div>
@@ -127,13 +133,22 @@ const handleSubmit = async (e: any) => {
         className="w-28 h-28 opacity-80"
       />
 
-      <p className="text-xl font-semibold">
+      {/* <p className="text-xl font-semibold">
         Your audit results will appear here
       </p>
 
       <p className="text-white/70 text-sm max-w-xs">
         Fill the form and click “Get Audit Report” to analyze your AI spending and discover savings.
-      </p>
+      </p> */}
+      <div className="text-center space-y-3">
+  <div className="text-5xl">📊</div>
+  <p className="text-lg font-semibold">
+    Your AI cost insights will appear here
+  </p>
+  <p className="text-white/60 text-sm">
+    Fill the form and click “Get Audit Report”
+  </p>
+</div>
 
     </div>
   )}

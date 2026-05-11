@@ -26,29 +26,35 @@ export default function Result({ id }: { id: string }) {
     fetchData();
   }, [id]);
 
-  if (!data || !audit) return <p>Loading...</p>;
-
+  // if (!data || !audit) return <p>Loading...</p>;
+  if (!data || !audit) {
+  return <p className="text-white">Analyzing your data...</p>;
+}
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-2">Result</h2>
+    <div className="space-y-2">
+  <div className="bg-white/10 backdrop-blur-lg p-5 rounded-xl border border-white/20 text-white">
+    
+    <h2 className="text-xl font-bold mb-3">Audit Result</h2>
 
-      <p>Tool: {data.tool}</p>
-      <p>Plan: {data.plan}</p>
-      <p>Spend: ${data.spend}</p>
-      <p>Seats: {data.seats}</p>
+    <p>Tool: {data.tool}</p>
+    <p>Plan: {data.plan}</p>
+    <p>Spend: ${data.spend}</p>
+    <p>Seats: {data.seats}</p>
 
-      <div className="mt-3">
-        <p>👉 {audit.results[0].recommendation}</p>
-        <p className="text-green-300">
-          💰 ${audit.totalSavings} savings
-        </p>
-        <p className="text-sm">{audit.results[0].reason}</p>
-      </div>
+    <div className="mt-4">
+      <p className="font-semibold">
+        👉 {audit.results[0].recommendation}
+      </p>
 
-      <div className="mt-3">
-        <h3 className="font-semibold">AI Summary</h3>
-        <p>{generateSummary(audit)}</p>
-      </div>
+      <p className="text-green-300">
+        💰 ${audit.totalSavings} savings
+      </p>
+
+      <p className="text-sm text-white/70">
+        {audit.results[0].reason}
+      </p>
     </div>
-  );
+  </div>
+  </div>
+);
 }
