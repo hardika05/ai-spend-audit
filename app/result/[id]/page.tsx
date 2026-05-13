@@ -1,91 +1,115 @@
-"use client";
+// import Result from "@/components/Result";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-import { auditTools } from "@/lib/auditEngine";
-import { generateSummary } from "@/lib/auditEngine";
+// export default function Page({ params }: any) {
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-pink-500 p-6">
+//       <Result id={params.id} />
+//     </div>
+//   );
+// }
 
-export default function ResultPage() {
-  const params = useParams();
-  const id = params.id;
+// export async function generateMetadata({ params }: any) {
+//   return {
+//     title: "AI Spend Audit Result",
+//     description: "See how much you can save on AI tools",
+//     openGraph: {
+//       title: "AI Spend Audit",
+//       description: "Check your AI cost savings",
+//       images: ["/og-image.png"],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//     },
+//   };
+// }
 
-  const [data, setData] = useState<any>(null);
-  const [audit, setAudit] = useState<any>(null);
+// import Result from "@/components/Result";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data, error } = await supabase
-        .from("audits")
-        .select("*")
-        .eq("id", id)
-        .single();
+// export default function Page({ params }: { params: { id: string } }) {
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-pink-500 p-6">
+//       <Result id={params.id} />
+//     </div>
+//   );
+// }
 
-      if (error) {
-        console.log(error);
-        return;
-      }
+// export function generateMetadata({ params }: { params: { id: string } }) {
+//   return {
+//     title: "AI Spend Audit Result",
+//     description: "See how much you can save on AI tools",
+//     openGraph: {
+//       title: "AI Spend Audit",
+//       description: "Check your AI cost savings",
+//       images: ["/og-image.png"],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//     },
+//   };
+// }
 
-      if (data) {
-        setData(data.data);
+// import Result from "@/components/Result";
 
-        const result = auditTools(data.data);
-        setAudit(result);
-      }
-    };
+// export default async function Page({ params }: any) {
+//   const { id } = await params; // ✅ MUST
 
-    if (id) fetchData();
-  }, [id]);
+//   return (
+//     <div className="min-h-screen p-6">
+//       <Result id={id} />
+//     </div>
+//   );
+// }
 
-  if (!data || !audit) return <div>Loading...</div>;
+// export async function generateMetadata({ params }: any) {
+//   const { id } = await params; // ✅ ALSO REQUIRED
 
-  return (
-  <div className="min-h-screen flex items-center justify-center bg-gray-100">
-    <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-xl">
+//   return {
+//     title: "AI Spend Audit Result",
+//     description: "See how much you can save on AI tools",
+//     metadataBase: new URL("http://localhost:3000"), // ✅ FIX WARNING
+//     openGraph: {
+//       title: "AI Spend Audit",
+//       description: "Check your AI cost savings",
+//       images: ["/og-image.png"],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//     },
+//   };
+// }
 
-      <h1 className="text-2xl font-bold mb-6 text-center">
-        Audit Result
-      </h1>
 
-      <div className="space-y-2 text-gray-700">
-        <p><b>Tool:</b> {data.tool}</p>
-        <p><b>Plan:</b> {data.plan}</p>
-        <p><b>Spend:</b> ${data.spend}</p>
-        <p><b>Seats:</b> {data.seats}</p>
-      </div>
 
-      <div className="mt-6 p-4 border rounded-lg bg-gray-50">
-        <h2 className="text-lg font-semibold">Recommendation</h2>
+// import Result from "@/components/Result";
+import AuditPage from "@/app/audit/page";
 
-        <p className="mt-2">
-          👉 {audit.results[0].recommendation}
-        </p>
+// export default async function Page({ params }: any) {
+//   const { id } = await params;
 
-        <p className="text-green-600 mt-2 font-bold text-lg">
-          💰 ${audit.totalSavings.toFixed(2)} / month savings
-        </p>
+//   return <AuditPage initialId={id} />;
+// }
 
-        <p className="mt-2 text-gray-600">
-          {audit.results[0].reason}
-        </p>
-      </div>
+import { redirect } from "next/navigation";
 
-      {/* AI Summary */}
-      <div className="mt-6 p-4 bg-gray-100 rounded-lg">
-        <h2 className="text-lg font-semibold">AI Summary</h2>
-        <p className="mt-2">
-          {generateSummary(audit)}
-        </p>
-      </div>
+export default function Page() {
+  // ✅ ALWAYS redirect to audit page on refresh
+  redirect("/audit");
+}
 
-      {/* CTA */}
-      {audit.totalSavings > 500 && (
-        <div className="mt-6 p-4 bg-yellow-100 rounded-lg text-center font-semibold">
-          🚀 You can save big! Book a consultation.
-        </div>
-      )}
+export async function generateMetadata({ params }: any) {
+  const { id } = await params;
 
-    </div>
-  </div>
-);
+  return {
+    title: "AI Spend Audit Result",
+    description: "See how much you can save on AI tools",
+    metadataBase: new URL("http://localhost:3000"),
+    openGraph: {
+      title: "AI Spend Audit",
+      description: "Check your AI cost savings",
+      images: ["/og-image.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
+  };
 }
